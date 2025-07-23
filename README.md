@@ -1,55 +1,24 @@
-标题
-XNLI翻译质量对多语言模型评估的影响：基于Perplexity的快速分析
+# A Perplexity-Based Analysis of Translation Artifacts in XNLI
 
-1. 核心假设（2段）
-• 问题：XNLI中未翻译的英文词（如"NASA"）和文化特定词（如"Thanksgiving"）可能导致：
+### Proposed Study: 
 
-目标语言句子的perplexity异常升高（因为这些词在本地语料中罕见）
+This study examines whether untranslated English terms (e.g., "NASA") and culture-specific concepts (e.g., "Thanksgiving") in XNLI’s non-English splits introduce biases when evaluating multilingual models, particularly for low-resource languages. The study hypothesise that such terms increase sentence perplexity (PPL) in target languages, artificially inflating model difficulty.
 
-模型表现被低估（尤其低资源语言）
+### Method:
 
-• 验证方法：
-通过比较「含未翻译词句子」vs「完全翻译句子」的perplexity差异，量化翻译缺陷的影响。
+**Data**: Extract Chinese XNLI dev sentences with untranslated English tokens (experimental group) vs. fully translated sentences (control group).
 
-2. 实验设计（核心部分）
-Step 1. 数据筛选
+**Metric**: Compute PPL for both groups using a pretrained Chinese LM (e.g., bert-base-chinese).
 
-从XNLI中文dev集中提取两类句子：
+**Analysis**: Compare mean PPL (Welch’s t-test) and visualize distributions. If time permits, repeat for a low-resource language (e.g., Thai).
 
-实验组：包含任何未翻译英文单词的句子（用正则表达式[A-Za-z]+快速筛选）
+### Expected Outcomes:
 
-对照组：纯中文字符的句子（随机采样相同数量）
+Higher PPL in experimental group → Untranslated terms degrade data quality.
 
-Step 2. Perplexity计算
+Stronger effect in low-resource languages → XNLI may underestimate model performance for these languages.
 
-工具：使用transformers库的预训练中文模型（如bert-base-chinese）
+Significance: Highlights potential biases in cross-lingual benchmarks and suggests filtering strategies for fairer evaluation.
 
-方法：
+Feasibility: Minimal coding (regex + HF Transformers), 1-2 experiments.
 
-对每个句子计算token-level的perplexity（公式：exp(loss)）
-
-取整句平均值
-
-Step 3. 统计分析
-
-计算两组perplexity的均值差异（可用Welch's t-test检验显著性）
-
-可视化：绘制两组perplexity的分布箱线图
-
-3. 预期结果与讨论
-• 若假设成立：
-
-实验组的perplexity显著高于对照组 → 说明未翻译词增加了语言模型的困惑度
-
-尤其低资源语言中，这种差异可能更大（可简单用1-2个其他语言验证，如泰语）
-
-• 意义：
-
-XNLI的翻译质量问题可能导致模型表现被低估
-
-建议：未来评估时需过滤或修正此类样本
-
-为什么选择Perplexity？
-简单直接：无需训练模型，直接反映句子的语言模型友好度
-
-可解释性：高perplexity = 模型认为句子"不自然"
