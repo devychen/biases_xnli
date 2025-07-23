@@ -6,19 +6,19 @@ This study examines whether untranslated English terms (e.g., "NASA") and cultur
 
 ### Method:
 
-**Data**: Extract Chinese XNLI dev sentences with untranslated English tokens (experimental group) vs. fully translated sentences (control group).
+- **Data**: Extract Chinese XNLI dev sentences with untranslated English tokens (experimental group) vs. fully translated sentences (control group).
 
-**Metric**: Compute PPL for both groups using a pretrained Chinese LM (e.g., bert-base-chinese).
+- **Metric**: Compute PPL for both groups using a pretrained Chinese LM (e.g., `bert-base-chinese`).
 
-**Analysis**: Compare mean PPL (Welch’s t-test) and visualize distributions. If time permits, repeat for a low-resource language (e.g., Thai).
+- **Analysis**: Compare mean PPL (`Welch’s t-test`) and (if necessary) visualize distributions. _*If time permits, repeat for a low-resource language (e.g., Hindi)._
 
 ### Expected Outcomes:
 
-Higher PPL in experimental group → Untranslated terms degrade data quality.
+- Higher PPL in experimental group → Untranslated terms degrade data quality.
 
-Stronger effect in low-resource languages → XNLI may underestimate model performance for these languages.
+- Stronger effect in low-resource languages → XNLI may underestimate model performance for these languages.
 
-Significance: Highlights potential biases in cross-lingual benchmarks and suggests filtering strategies for fairer evaluation.
+- Significance: Highlights potential biases in cross-lingual benchmarks and suggests filtering strategies for fairer evaluation.
 
-Feasibility: Minimal coding (regex + HF Transformers), 1-2 experiments.
+- Feasibility: Minimal coding (regex + HF Transformers), 1-2 experiments.
 
