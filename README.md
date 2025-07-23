@@ -1,4 +1,4 @@
-# A Perplexity-Based Analysis of Translation Artifacts in XNLI
+# A Perplexity-Based Analysis of Translation Artefacts in XNLI
 
 ### Proposed Study: 
 
